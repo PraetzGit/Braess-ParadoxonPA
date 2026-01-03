@@ -3,9 +3,14 @@ export default function Video2() {
     <div
       style={{
         padding: "2rem",
-        maxWidth: 1000,
+        maxWidth: 1300,
         margin: "auto",
         fontFamily: "Roboto, sans-serif",
+        minHeight: "100vh",
+        backgroundImage: "url('/bremerhaven2.png')", // Bildpfad anpassen
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        position: "relative",
       }}
     >
       <h1 style={{ fontSize: "2rem", fontWeight: 700, color: "#333" }}>
