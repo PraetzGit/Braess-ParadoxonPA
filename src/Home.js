@@ -9,7 +9,7 @@ export default function Home() {
           color: "#333",
           lineHeight: 1.6,
             minHeight: "100vh",
-        backgroundImage: "url('/bremerhaven.png')", // Bildpfad anpassen
+        backgroundImage: "url('/bremerhaven2.png')", // Bildpfad anpassen
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
