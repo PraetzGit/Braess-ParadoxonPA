@@ -4,7 +4,7 @@ export default function Home() {
         style={{
           fontFamily: "Roboto, sans-serif",
           padding: "2rem",
-          maxWidth: 800,
+          maxWidth: 1300,
           margin: "0 auto",
           color: "#333",
           lineHeight: 1.6,
