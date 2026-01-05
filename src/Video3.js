@@ -41,7 +41,7 @@ export default function Video3() {
               boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
             }}
           >
-            <source src="/Paint1.mp4" type="video/mp4" />
+            <source src="/SUMO3.mp4" type="video/mp4" />
             Dein Browser unterstützt dieses Video nicht.
           </video>
         </div>
@@ -73,7 +73,7 @@ export default function Video3() {
             </h3>
 
             <img
-              src="/Paintdiagramm.png"
+              src="/SUMO3.png"
               alt="Diagramm zum Braess-Paradoxon"
               style={{
                 width: "100%",
