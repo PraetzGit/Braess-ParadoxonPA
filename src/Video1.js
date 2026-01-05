@@ -40,7 +40,7 @@ export default function Video1() {
               boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
             }}
           >
-            <source src="/Paint1.mp4" type="video/mp4" />
+            <source src="/SUMO1.mp4" type="video/mp4" />
             Dein Browser unterstützt dieses Video nicht.
           </video>
         </div>
