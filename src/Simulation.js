@@ -416,37 +416,49 @@ const newRoute = [
 // ------------------------------------------
 
 export default function Simulation() {
+  const TIME_SCALE = 10.5;   // 50 s × 12 ≈ 600 s
   const LEFT_TOTAL = 500;
   const RIGHT_TOTAL = 400;
   const [extraRoadOn, setExtraRoadOn] = useState(true);
   const [newRoadUsers, setNewRoadUsers] = useState(200);
   const calcTimes = (extraOn, newUsers) => {
-    const leftUsingNew = extraOn ? newUsers : 0;
-    const leftRemaining = LEFT_TOTAL - leftUsingNew;
-    const right = RIGHT_TOTAL;
-    const baseLeft = 220;
-    const baseRight = 240;
-    const baseNew = 80;
-    const addLeft = 2 * (leftRemaining / 100);
-    const addRight = 2 * (right / 100);
-    const addNew = 4 * (leftUsingNew / 100);
-    const timeLeft = baseLeft + addLeft;
-    const timeRight = baseRight + addRight;
-    const timeNew = baseNew + addNew;
-    const meanWithout =
-      (LEFT_TOTAL * (baseLeft + 2 * (LEFT_TOTAL / 100)) +
-        right * (baseRight + 2 * (right / 100))) /
-      (LEFT_TOTAL + right);
-    const totalVehicles = LEFT_TOTAL + right;
-    const sumTimesWith =
-      leftRemaining * timeLeft + leftUsingNew * timeNew + right * timeRight;
-    const meanWith = sumTimesWith / totalVehicles;
+    const L = LEFT_TOTAL; // 500
+    const R = RIGHT_TOTAL; // 400
+    const x = extraOn ? newUsers : 0; // wie viele links auf Abkürzung
+
+    // Flüsse auf den Teilstrecken
+    const A = L; // alle linken fahren A
+    const B = R; // alle rechten fahren B
+    const C = L - x; // linke ohne Abkürzung
+    const D = R + x; // rechte plus Abkürzungsfahrer
+    const N = x; // neue Straße
+
+    // Kostenfunktionen (klassisches Braess-Setup)
+    const tA = 0.02 * A;
+    const tB = 50;
+    const tC = 50;
+    const tD = 0.02 * D;
+
+    // Neue Straße: sehr schnell, aber staut extrem ab ~250
+    const tN = 1 + 0.02 * N + 0.03 * Math.max(0, N - 250) ** 2;
+
+    // Routenzeiten
+    const leftTime = tA + tC;
+    const rightTime = tB + tD;
+    const newTime = tA + tN + tD;
+
+    // Mittelwert
+    const total = L + R;
+    const meanWithout = (L * leftTime + R * rightTime) / total;
+
+    const meanWith = ((L - x) * leftTime + R * rightTime + x * newTime) / total;
+
     return {
-      timeLeft: Number(timeLeft.toFixed(1)),
-      timeRight: Number(timeRight.toFixed(1)),
-      timeNew: Number(timeNew.toFixed(1)),
-      meanWithout: Number(meanWithout.toFixed(1)),
-      meanWith: Number(meanWith.toFixed(1)),
+      timeLeft: Number((leftTime * TIME_SCALE).toFixed(1)),
+      timeRight: Number((rightTime * TIME_SCALE).toFixed(1)),
+      timeNew: Number((newTime * TIME_SCALE).toFixed(1)),
+      meanWithout: Number((meanWithout * TIME_SCALE).toFixed(1)),
+      meanWith: Number((meanWith * TIME_SCALE).toFixed(1)),
     };
   };
 
@@ -512,8 +524,8 @@ export default function Simulation() {
             <label>Linke Autos auf neuer Straße: {newRoadUsers}</label>
             <input
               type="range"
-              min={50}
-              max={350}
+              min={150}
+              max={300}
               value={newRoadUsers}
               onChange={(e) => setNewRoadUsers(Number(e.target.value))}
               style={{ width: "100%", marginTop: 8 }}
