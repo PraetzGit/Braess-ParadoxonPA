@@ -21,6 +21,12 @@ export default function Home() {
             fontWeight: 700,
             color: "#222",
             marginBottom: "24px",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            padding: "2rem",
           }}
         >
           Braess-Paradoxon – Profilarbeit
