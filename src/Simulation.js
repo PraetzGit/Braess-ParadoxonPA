@@ -1,4 +1,3 @@
-// App.js – komplette funktionierende Version
 import React, { useState, useMemo } from "react";
 import { Bar } from "react-chartjs-2";
 
@@ -18,9 +17,8 @@ import L from "leaflet";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
-// ------------------ Schwarzes Punkt-Icon ------------------
 const blackDotIcon = new L.DivIcon({
-  className: "", // keine zusätzliche CSS-Klasse
+  className: "",
   html: `<div style="
     width: 12px;
     height: 12px;
@@ -30,11 +28,10 @@ const blackDotIcon = new L.DivIcon({
     box-shadow: 0 0 2px rgba(0,0,0,0.5);
   "></div>`,
   iconSize: [12, 12],
-  iconAnchor: [6, 6], // mittig setzen
+  iconAnchor: [6, 6],
   popupAnchor: [0, -6],
 });
 
-// ------------------ Deine echten Routen (aus GeoJSON, in [lat, lon]) ------------------
 const bremerhavenCenter = [53.548, 8.58];
 
 const leftRoute = [
@@ -413,7 +410,6 @@ const newRoute = [
   [53.54454, 8.58135],
 ];
 
-// ------------------------------------------
 
 export default function Simulation() {
   const TIME_SCALE = 10.5;   // 50 s × 12 ≈ 600 s
@@ -422,32 +418,27 @@ export default function Simulation() {
   const [extraRoadOn, setExtraRoadOn] = useState(true);
   const [newRoadUsers, setNewRoadUsers] = useState(200);
   const calcTimes = (extraOn, newUsers) => {
-    const L = LEFT_TOTAL; // 500
-    const R = RIGHT_TOTAL; // 400
-    const x = extraOn ? newUsers : 0; // wie viele links auf Abkürzung
+    const L = LEFT_TOTAL;
+    const R = RIGHT_TOTAL;
+    const x = extraOn ? newUsers : 0;
 
-    // Flüsse auf den Teilstrecken
-    const A = L; // alle linken fahren A
-    const B = R; // alle rechten fahren B
-    const C = L - x; // linke ohne Abkürzung
-    const D = R + x; // rechte plus Abkürzungsfahrer
-    const N = x; // neue Straße
+    const A = L; 
+    const B = R; 
+    const C = L - x; 
+    const D = R + x; 
+    const N = x; 
 
-    // Kostenfunktionen (klassisches Braess-Setup)
     const tA = 0.02 * A;
     const tB = 50;
     const tC = 50;
     const tD = 0.02 * D;
 
-    // Neue Straße: sehr schnell, aber staut extrem ab ~250
     const tN = 1 + 0.02 * N + 0.03 * Math.max(0, N - 250) ** 2;
 
-    // Routenzeiten
     const leftTime = tA + tC;
     const rightTime = tB + tD;
     const newTime = tA + tN + tD;
 
-    // Mittelwert
     const total = L + R;
     const meanWithout = (L * leftTime + R * rightTime) / total;
 
@@ -486,7 +477,7 @@ export default function Simulation() {
           borderRight: "1px solid #e2e8f0",
         }}
       >
-        {/* Anzeige */}
+        
         <div
           style={{
             background: "#fff",
@@ -502,7 +493,6 @@ export default function Simulation() {
           </div>
         </div>
 
-        {/* Steuerung */}
         <div
           style={{
             background: "#fff",
@@ -537,7 +527,6 @@ export default function Simulation() {
           </div>
         </div>
 
-        {/* EIN Balkendiagramm */}
         <div
           style={{
             background: "#fff",
@@ -577,7 +566,6 @@ export default function Simulation() {
         </div>
       </div>
 
-      {/* Rechte Seite: Karte */}
       <div style={{ flex: 1, padding: 20 }}>
         <MapContainer
           center={bremerhavenCenter}
@@ -589,10 +577,8 @@ export default function Simulation() {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {/* Linke Route */}
           <Polyline positions={leftRoute} color="blue" weight={5} />
 
-          {/* Rechte Route */}
           <Polyline positions={rightRoute} color="green" weight={5} />
           <Marker position={rightRoute[0]} icon={blackDotIcon}>
             <Popup>Start</Popup>
@@ -604,7 +590,6 @@ export default function Simulation() {
             <Popup>Ziel</Popup>
           </Marker>
 
-          {/* Neue Straße */}
           {extraRoadOn && (
             <>
               <Polyline positions={newRoute} color="red" weight={5} />
