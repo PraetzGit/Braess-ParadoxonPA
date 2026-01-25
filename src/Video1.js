@@ -43,6 +43,22 @@ export default function Video1() {
             <source src="/SUMO1.mp4" type="video/mp4" />
             Dein Browser unterstützt dieses Video nicht.
           </video>
+              <p
+            style={{
+              marginTop: "1rem",
+              padding: "0.8rem 1rem",
+              backgroundColor: "rgba(255,255,255,0.85)",
+              borderLeft: "5px solid #4caf50",
+              fontSize: "0.95rem",
+              color: "#333",
+              borderRadius: "6px",
+            }}
+          >
+            <strong>Hinweis:</strong> Die Farben der Autos hängen von ihren
+            Geschwindigkeiten ab
+            <br />
+            (grün – schnell, gelb – mäßig, rot – sehr langsam oder stehend)
+          </p>
         </div>
 
         {/* Erklärung */}
