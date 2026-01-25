@@ -7,7 +7,7 @@ export default function Video3() {
         margin: "auto",
         fontFamily: "Roboto, sans-serif",
         minHeight: "100vh",
-        backgroundImage: "url('/bremerhaven2.png')", // Bildpfad anpassen
+        backgroundImage: "url('/bremerhaven2.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
@@ -22,7 +22,6 @@ export default function Video3() {
         Straße.
       </p>
 
-      {/* Layout: Video + Erklärung */}
       <div
         style={{
           display: "flex",
@@ -31,7 +30,7 @@ export default function Video3() {
           flexWrap: "wrap",
         }}
       >
-        {/* Video */}
+        
         <div style={{ flex: "1 1 550px" }}>
           <video
             controls
@@ -62,7 +61,6 @@ export default function Video3() {
           </p>
         </div>
 
-        {/* Erklärung */}
         <div style={{ flex: "1 1 300px" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#222" }}>
             Erklärung
@@ -82,7 +80,7 @@ export default function Video3() {
           <p style={{ fontSize: "1rem", color: "#333", fontWeight: 600 }}>
             → Das ist das Braess-Paradoxon.
           </p>
-          {/* Diagramm */}
+              
           <div style={{ marginTop: "1.5rem" }}>
             <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "#333" }}>
               Vergleich der Reisezeiten
