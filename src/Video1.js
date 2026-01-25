@@ -7,7 +7,7 @@ export default function Video1() {
         margin: "auto",
         fontFamily: "Roboto, sans-serif",
         minHeight: "100vh",
-        backgroundImage: "url('/bremerhaven2.png')", // Bildpfad anpassen
+        backgroundImage: "url('/bremerhaven2.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
         position: "relative",
@@ -21,7 +21,6 @@ export default function Video1() {
         Diese Simulation zeigt das Verkehrsnetz ohne zusätzliche Straße
       </p>
 
-      {/* Layout: Video + Erklärung */}
       <div
         style={{
           display: "flex",
@@ -30,7 +29,7 @@ export default function Video1() {
           flexWrap: "wrap",
         }}
       >
-        {/* Video */}
+        
         <div style={{ flex: "1 1 550px" }}>
           <video
             controls
@@ -61,7 +60,6 @@ export default function Video1() {
           </p>
         </div>
 
-        {/* Erklärung */}
         <div style={{ flex: "1 1 300px" }}>
           <h2 style={{ fontSize: "1.3rem", fontWeight: 600, color: "#222" }}>
             Erklärung
