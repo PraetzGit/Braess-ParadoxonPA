@@ -459,6 +459,7 @@ export default function Simulation() {
   );
 
   const displayedMean = extraRoadOn ? times.meanWith : times.meanWithout;
+  const displayedMeanMin = displayedMean / 60;
 
   return (
     <div
@@ -487,7 +488,9 @@ export default function Simulation() {
           }}
         >
           <div style={{ fontSize: 12, color: "#555" }}>Mittlere Reisezeit</div>
-          <div style={{ fontSize: 36, fontWeight: 700 }}>{displayedMean}s</div>
+          <div style={{ fontSize: 36, fontWeight: 700 }}>
+          {displayedMean}s = {displayedMeanMin.toFixed(1)}min
+          </div>
           <div style={{ fontSize: 12, color: "#777" }}>
             aktuelle Einstellung: {extraRoadOn ? "mit Zusatz" : "ohne Zusatz"}
           </div>
