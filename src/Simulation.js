@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Bar } from "react-chartjs-2";
+import { Bar, Line } from "react-chartjs-2";
 
 import {
   Chart as ChartJS,
@@ -15,7 +15,17 @@ import "leaflet/dist/leaflet.css";
 import { Marker, Popup } from "react-leaflet";
 import L from "leaflet";
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Tooltip, Legend);
+import { LineElement, PointElement } from "chart.js";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  LineElement,
+  PointElement,
+  Tooltip,
+  Legend
+);
 
 const blackDotIcon = new L.DivIcon({
   className: "",
@@ -410,9 +420,8 @@ const newRoute = [
   [53.54454, 8.58135],
 ];
 
-
 export default function Simulation() {
-  const TIME_SCALE = 10.5;   // 50 s × 12 ≈ 600 s
+  const TIME_SCALE = 10.5; // 50 s × 12 ≈ 600 s
   const LEFT_TOTAL = 500;
   const RIGHT_TOTAL = 400;
   const [extraRoadOn, setExtraRoadOn] = useState(true);
@@ -422,11 +431,11 @@ export default function Simulation() {
     const R = RIGHT_TOTAL;
     const x = extraOn ? newUsers : 0;
 
-    const A = L; 
-    const B = R; 
-    const C = L - x; 
-    const D = R + x; 
-    const N = x; 
+    const A = L;
+    const B = R;
+    const C = L - x;
+    const D = R + x;
+    const N = x;
 
     const tA = 0.02 * A;
     const tB = 50;
@@ -458,6 +467,23 @@ export default function Simulation() {
     [extraRoadOn, newRoadUsers]
   );
 
+  const curveData = useMemo(() => {
+    const values = [];
+
+    for (let x = 0; x <= 300; x += 5) {
+      const withRoad = calcTimes(true, x);
+      const withoutRoad = calcTimes(false, 0);
+
+      values.push({
+        x,
+        meanWith: withRoad.meanWith,
+        meanWithout: withoutRoad.meanWithout,
+      });
+    }
+
+    return values;
+  }, []);
+
   const displayedMean = extraRoadOn ? times.meanWith : times.meanWithout;
   const displayedMeanMin = displayedMean / 60;
 
@@ -478,7 +504,6 @@ export default function Simulation() {
           borderRight: "1px solid #e2e8f0",
         }}
       >
-        
         <div
           style={{
             background: "#fff",
@@ -489,7 +514,7 @@ export default function Simulation() {
         >
           <div style={{ fontSize: 12, color: "#555" }}>Mittlere Reisezeit</div>
           <div style={{ fontSize: 36, fontWeight: 700 }}>
-          {displayedMean}s = {displayedMeanMin.toFixed(1)}min
+            {displayedMean}s = {displayedMeanMin.toFixed(1)}min
           </div>
           <div style={{ fontSize: 12, color: "#777" }}>
             aktuelle Einstellung: {extraRoadOn ? "mit Zusatz" : "ohne Zusatz"}
@@ -564,6 +589,56 @@ export default function Simulation() {
           </div>
         </div>
 
+        <div
+          style={{
+            background: "#fff",
+            padding: 12,
+            borderRadius: 8,
+            marginBottom: 12,
+          }}
+        >
+          <div style={{ height: 260 }}>
+            <Line
+              data={{
+                datasets: [
+                  {
+                    label: "Ohne Zusatz",
+                    data: curveData.map((d) => ({ x: d.x, y: d.meanWithout })),
+                    borderColor: "#4A90E2",
+                    borderDash: [5, 5],
+                  },
+                  {
+                    label: "Mit Zusatz",
+                    data: curveData.map((d) => ({ x: d.x, y: d.meanWith })),
+                    borderColor: "#E94E4E",
+                    tension: 0.3,
+                  },
+                ],
+              }}
+              options={{
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                  x: {
+                    type: "linear",
+                    title: {
+                      display: true,
+                      text: "Autos auf neuer Straße",
+                    },
+                  },
+                  y: {
+                    min: 450,
+                    title: {
+                      display: true,
+                      text: "Mittlere Reisezeit (s)",
+                    },
+                  },
+                },
+              }}
+            />
+          </div>
+        </div>
+
         <div style={{ fontSize: 12, color: "#555" }}>
           Hinweis: Das Modell ist vereinfacht und demonstriert nur das Prinzip.
         </div>
@@ -603,4 +678,5 @@ export default function Simulation() {
     </div>
   );
 }
+
 
