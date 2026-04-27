@@ -3,8 +3,8 @@ export default function Video2() {
     <div
       style={{
         padding: "2rem",
-        maxWidth: 1300,
-        margin: "auto",
+        maxWidth: "100%",
+        margin: 0,
         fontFamily: "Roboto, sans-serif",
         minHeight: "100vh",
         backgroundImage: "url('/bremerhaven2.png')",
