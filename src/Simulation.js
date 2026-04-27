@@ -424,7 +424,7 @@ export default function Simulation() {
   const TIME_SCALE = 10.5; // 50 s × 12 ≈ 600 s
   const LEFT_TOTAL = 500;
   const RIGHT_TOTAL = 400;
-  const [extraRoadOn, setExtraRoadOn] = useState(true);
+  const [extraRoadOn, setExtraRoadOn] = useState(false);
   const [newRoadUsers, setNewRoadUsers] = useState(200);
   const calcTimes = (extraOn, newUsers) => {
     const L = LEFT_TOTAL;
