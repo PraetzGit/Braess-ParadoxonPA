@@ -491,8 +491,9 @@ export default function Simulation() {
     <div
       style={{
         display: "flex",
-        height: "100vh",
+        minHeight: "100vh",
         fontFamily: "Arial, sans-serif",
+        alignItems: "stretch",
       }}
     >
       {/* Linker Bereich */}
