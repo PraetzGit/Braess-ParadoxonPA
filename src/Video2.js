@@ -83,7 +83,7 @@ export default function Video2() {
               
           <div style={{ marginTop: "1.5rem" }}>
             <h3 style={{ fontSize: "1.1rem", fontWeight: 600, color: "#333" }}>
-              Vergleich der mittleren Reisezeiten
+              Vergleich der durchschnittlichen Reisezeiten
             </h3>
 
             <img
